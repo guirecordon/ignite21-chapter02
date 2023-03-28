@@ -4,12 +4,14 @@ export const SummaryContainer = styled.div`
   width: 100%;
   max-width: 1120px;
   margin: -68px auto;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
   
-  div {
+  .summaryWrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .card {
    padding: 1rem 2rem; 
    background: var(--shapePrincipal);
    border-radius: 5px;
