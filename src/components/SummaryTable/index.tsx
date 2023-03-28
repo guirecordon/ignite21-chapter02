@@ -1,6 +1,14 @@
+import { useEffect } from "react";
 import { SummaryTableContainer } from "./style";
 
 export function SummaryTable() {
+  useEffect(() => {
+    fetch('http://localhost:3000/api/transactions')
+      .then(response => response.json())
+      .then(data => console.log(data))
+  }, [])
+
+
   return (
     <SummaryTableContainer>
       <table>
@@ -15,14 +23,14 @@ export function SummaryTable() {
         <tbody>
           <tr>
             <td>Desenvolvimento de site</td>
-            <td>R$ 12.000,00</td>
+            <td className="income">R$ 12.000,00</td>
             <td>Venda</td>
             <td>13/03/2023</td>
           </tr>
 
           <tr>
             <td>Hamburguer</td>
-            <td>- R$ 59,00</td>
+            <td className="outcome">- R$ 59,00</td>
             <td>Alimentação</td>
             <td>10/03/2023</td>
           </tr>
