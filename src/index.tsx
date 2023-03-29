@@ -12,11 +12,19 @@ createServer({
       return [
         {
           id: 1,
-          title: 'Transaction 1',
-          value: 400,
+          title: 'Desenvolvimento de site',
+          value: 12000,
           type: 'income',
-          category: 'Food',
-          createdAt: new Date()
+          category: 'Venda',
+          createdAt: new Date('2023-03-13T03:24:00')
+        },
+        {
+          id: 2,
+          title: 'Hamburguer',
+          value: 59,
+          type: 'outcome',
+          category: 'Alimentação',
+          createdAt: new Date('2023-03-12T11:46:00')
         }
       ]
     })

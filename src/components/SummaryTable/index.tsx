@@ -1,12 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SummaryTableContainer } from "./style";
 import { api } from "../../services/api";
 
 
+interface TableProps {
+  id: number;
+  title: string;
+  value: number;
+  type: string;
+  category: string;
+  createdAt: Date;
+}
+
 export function SummaryTable() {
+  const [transactions, setTransactions] = useState<TableProps[]>([])
+
   useEffect(() => {
      api.get('transactions')
-       .then(response => console.log(response.data))
+       .then(response => setTransactions(response.data))
   }, [])
 
   return (
@@ -21,19 +32,14 @@ export function SummaryTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Desenvolvimento de site</td>
-            <td className="income">R$ 12.000,00</td>
-            <td>Venda</td>
-            <td>13/03/2023</td>
-          </tr>
-
-          <tr>
-            <td>Hamburguer</td>
-            <td className="outcome">- R$ 59,00</td>
-            <td>Alimentação</td>
-            <td>10/03/2023</td>
-          </tr>
+          {transactions.map((transaction) => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className="income">{transaction.value}</td>
+              <td>{transaction.category}</td>
+              <td>maio</td>
+            </tr> 
+          ))}
         </tbody>
       </table>
     </SummaryTableContainer>
