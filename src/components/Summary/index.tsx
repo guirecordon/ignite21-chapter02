@@ -2,7 +2,7 @@ import { SummaryTable } from "../SummaryTable";
 import { SummaryContainer } from "./style";
 
 import entradas from '../../assets/Entradas.png'
-import saidas from '../../assets/Saídas.png'
+import saidas from '../../assets/saidas.png'
 import total from '../../assets/Total.png'
  
 export function Summary() {
