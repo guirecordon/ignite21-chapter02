@@ -5,14 +5,27 @@ import outcomeIcon from '../../assets/saidas.png'
 import { CloseModalBtn, FakeRadioBtn, FormContainer, TransactionTypeContainer } from "./style";
 
 import Modal from 'react-modal';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ModalContext } from '../../contexts/useModal';
 
 
 export const ModalForm = () => {
-  const [transactionType, setTransactionType] = useState('income');
+  const { 
+    modalIsOpen,
+    closeModal,
+    title,
+    price,
+    category,
+    setCategory,
+    setTitle,
+    setPrice,
+    setTransactionType,
+    transactionType 
+  }: any = useContext(ModalContext)
 
-  const { modalIsOpen, closeModal }: any = useContext(ModalContext)
+
+  console.log(title, price, category);
+
 
 
   return (
@@ -27,8 +40,8 @@ export const ModalForm = () => {
       <CloseModalBtn>
         <img src={closeBtn} alt="" onClick={closeModal} />
       </CloseModalBtn>
-        <input type="text" placeholder="Nome" />
-        <input type="number" placeholder="Preço" />
+        <input type="text" onChange={(e) => setTitle(e.target.value) } value={title} placeholder="Nome" />
+        <input type="number" onChange={(e) => setPrice(Number(e.target.value)) } value={price} placeholder="Preço" />
         <TransactionTypeContainer>
           <FakeRadioBtn type="button"
             onClick={() => setTransactionType('income')} 
@@ -48,7 +61,7 @@ export const ModalForm = () => {
             <span>Saída</span>
           </FakeRadioBtn>
         </TransactionTypeContainer>
-        <input type="text" placeholder="Categoria" />
+        <input type="text" onChange={(e) => setCategory(e.target.value) } value={category} placeholder="Categoria" />
         <button type="submit">Cadastrar</button>
     </FormContainer>
   </Modal>
