@@ -8,6 +8,8 @@ export const GlobalStyle = createGlobalStyle`
     --text: #969CB2;
     --blueText: #eff6ff;
     --greenText: #f0fdf4;
+    --inputFill: #E7E9EE;
+    --inputBorder: #D7D7D7;
 
     --blue: #5429CC;
     --lightBlue: #6933ff;
@@ -53,5 +55,27 @@ export const GlobalStyle = createGlobalStyle`
   [disabled] {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  .transactionModalOverlay {
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .transactionModalContent {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: var(--background);
+    padding: 3rem 2rem;
+    border-radius: 5px;
   }
 `
