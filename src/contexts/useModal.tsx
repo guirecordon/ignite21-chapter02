@@ -1,26 +1,50 @@
-import { createContext, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import { api } from '../services/api';
 
-export const ModalContext = createContext({});
+interface Transaction {
+  id: number;
+  title: string;
+  price: number;
+  type: string;
+  category: string;
+  createdAt: string;
+}
 
-export function ModalContextProvider({ children }: any) {
-  const [modalIsOpen, setIsOpen] = useState(false);
+type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
 
-  const [transactionType, setTransactionType] = useState('income');
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState('');
+interface ModalContextProviderProps {
+  children: ReactNode;
+}
 
-  function openModal() {
-    setIsOpen(true);
-  }
+interface TransactionsContextData {
+  transactions: Transaction[];
+  createTransactions: (transaction: TransactionInput) => Promise<void>;
+}
 
-  function closeModal() {
-    setIsOpen(false);
+export const ModalContext = createContext<TransactionsContextData>({} as TransactionsContextData);
+
+export function ModalContextProvider({ children }: ModalContextProviderProps) {
+
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+
+  useEffect(() => {
+    api.get('transactions')
+      .then(response => setTransactions(response.data.transactions))
+  }, [])
+
+  async function createTransactions(transactionInput: TransactionInput) {
+    const response = await api.post('/transactions', transactionInput)
+    const { transaction } = response.data
+
+    setTransactions([
+      ...transactions,
+      transaction
+    ])
   }
 
   return (
     <ModalContext.Provider
-      value={{closeModal, openModal, modalIsOpen, transactionType, setTransactionType, title, price, category, setTitle, setPrice, setCategory} }
+      value={ { transactions, createTransactions } }
     >
       {children}
     </ModalContext.Provider>

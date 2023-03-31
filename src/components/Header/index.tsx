@@ -1,12 +1,12 @@
 import { HeaderContainer } from "./style";
 
 import dtlogo from '../../assets/dtlogo.svg'
-import { useContext } from "react";
-import { ModalContext } from "../../contexts/useModal";
 
-export function Header() {
-  const { openModal }: any = useContext(ModalContext);
+interface HeaderProps {
+  openModal: () => void;
+}
 
+export function Header({openModal}: HeaderProps) {
   return (
     <HeaderContainer>
       <div>

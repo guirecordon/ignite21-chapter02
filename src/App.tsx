@@ -3,15 +3,27 @@ import { Summary } from './components/Summary';
 import { GlobalStyle } from './styles/global'
 import { ModalContextProvider } from './contexts/useModal';
 import { ModalForm } from './components/ModalForm';
+import { useState } from 'react';
 
 export function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+
   return (
     <>
       <ModalContextProvider>
-        <Header />
+        <Header openModal={openModal} />
         <Summary />
 
-        <ModalForm />
+        <ModalForm isOpen={isOpen} onRequestClose={closeModal} closeModal={closeModal} />
       </ModalContextProvider>
       <GlobalStyle />
     </>

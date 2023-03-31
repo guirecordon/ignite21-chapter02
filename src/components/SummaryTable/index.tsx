@@ -1,24 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SummaryTableContainer } from "./style";
 import { api } from "../../services/api";
+import { ModalContext } from "../../contexts/useModal";
 
 
 interface TableProps {
   id: number;
   title: string;
-  value: number;
+  price: number;
   type: string;
   category: string;
   createdAt: Date;
 }
 
 export function SummaryTable() {
-  const [transactions, setTransactions] = useState<TableProps[]>([])
-
-  useEffect(() => {
-     api.get('transactions')
-       .then(response => setTransactions(response.data))
-  }, [])
+  const { transactions } = useContext(ModalContext)
 
   return (
     <SummaryTableContainer>
@@ -35,7 +31,7 @@ export function SummaryTable() {
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
               <td>{transaction.title}</td>
-              <td className="income">{transaction.value}</td>
+              <td className={transaction.type}>{transaction.price}</td>
               <td>{transaction.category}</td>
               <td>maio</td>
             </tr> 
