@@ -1,17 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { SummaryTableContainer } from "./style";
-import { api } from "../../services/api";
 import { ModalContext } from "../../contexts/useModal";
-
-
-interface TableProps {
-  id: number;
-  title: string;
-  price: number;
-  type: string;
-  category: string;
-  createdAt: Date;
-}
 
 export function SummaryTable() {
   const { transactions } = useContext(ModalContext)
@@ -30,7 +19,13 @@ export function SummaryTable() {
         <tbody>
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
-              <td>{transaction.title}</td>
+              <td>
+                {
+                  transaction.title[0].toUpperCase()
+                  + 
+                  transaction.title.slice(1)
+                }
+              </td>
               <td className={transaction.type}>{
                 new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
@@ -38,7 +33,7 @@ export function SummaryTable() {
                 }).format(transaction.price)
               }</td>
               <td>{transaction.category}</td>
-              <td>maio</td>
+              <td>{new Intl.DateTimeFormat('pt-BR').format(transaction.createdAt)}</td>
             </tr> 
           ))}
         </tbody>

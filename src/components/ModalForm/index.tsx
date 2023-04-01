@@ -51,8 +51,6 @@ export const ModalForm = ({ isOpen, onRequestClose, closeModal }: ModalFormProps
     setCategory('');
   }
 
-
-
   return (
     <Modal
     isOpen={isOpen}

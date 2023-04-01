@@ -7,7 +7,7 @@ interface Transaction {
   price: number;
   type: string;
   category: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
