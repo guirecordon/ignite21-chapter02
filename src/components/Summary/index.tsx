@@ -4,8 +4,31 @@ import { SummaryContainer } from "./style";
 import entradas from '../../assets/Entradas.png'
 import saidas from '../../assets/saidas.png'
 import total from '../../assets/Total.png'
+import { useContext } from "react";
+import { ModalContext } from "../../contexts/useModal";
  
 export function Summary() {
+  const { transactions } = useContext(ModalContext)
+
+  const summaryValues = transactions.reduce((acc, currVal) => {
+
+    if(currVal.type === 'income') {
+      acc.totalAll += currVal.price;
+      acc.totalIn += currVal.price
+    } else {
+      acc.totalAll -= currVal.price;
+      acc.totalOut += currVal.price
+    }
+
+    return acc;
+  }, {
+    totalIn: 0,
+    totalOut: 0,
+    totalAll: 0, 
+  })
+
+  console.log(summaryValues)
+
   return (
     <SummaryContainer>
       <div className="summaryWrapper">
@@ -15,7 +38,10 @@ export function Summary() {
             <img src={entradas} alt="" />
           </header>
 
-          <strong>R$ 17.400,00</strong>
+          <strong>{new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(summaryValues.totalIn)}</strong>
         </div>
         <div className="card">
           <header>
@@ -23,7 +49,10 @@ export function Summary() {
             <img src={saidas} alt="" />
           </header>
 
-          <strong>R$ 1.250,00</strong>
+          <strong>{new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(summaryValues.totalOut)}</strong>
         </div>
         <div className="total card">
           <header>
@@ -31,7 +60,10 @@ export function Summary() {
             <img src={total} alt="" />
           </header>
 
-          <strong>R$ 16.141,00</strong>
+          <strong>{new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(summaryValues.totalAll)}</strong>
         </div>
       </div>
       <SummaryTable />
