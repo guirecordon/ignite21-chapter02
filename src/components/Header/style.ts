@@ -27,5 +27,5 @@ export const HeaderContainer = styled.header`
       filter: brightness(0.9);
     }
   }
-
 `
+

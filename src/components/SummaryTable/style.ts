@@ -37,3 +37,13 @@ export const SummaryTableContainer = styled.div`
     }
   }
 `
+
+export const EmptyPager = styled.h3`
+  font-size: 1.5rem;
+  color: var(--title);
+  text-align: center;
+  margin-top: 8rem;
+  width: 100%;
+  max-width: 36rem;
+  transform: translateX(50%);
+`
