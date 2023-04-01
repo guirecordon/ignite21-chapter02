@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SummaryTableContainer } from "./style";
+import { EmptyPager, SummaryTableContainer } from "./style";
 import { ModalContext } from "../../contexts/useModal";
 
 export function SummaryTable() {
@@ -7,6 +7,7 @@ export function SummaryTable() {
 
   return (
     <SummaryTableContainer>
+      {transactions.length > 0 ? (
       <table>
         <thead>
           <tr>
@@ -38,6 +39,10 @@ export function SummaryTable() {
           ))}
         </tbody>
       </table>
+      ) : (
+        <EmptyPager>Clique no botão do canto direito superior para adicionar transações.</EmptyPager>
+      )}
+
     </SummaryTableContainer>
   )
 }
